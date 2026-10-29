@@ -1,0 +1,98 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--bg);
+}
+
+body {
+  color: var(--white);
+  font: var(--font-body);
+  -webkit-text-size-adjust: 100%;
+}
+
+button {
+  font: inherit;
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
+  height: 100dvh;
+  margin: 0 auto;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.app-content {
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4) var(--space-3) var(--space-3);
+}
+
+.screen-title {
+  align-self: stretch;
+  margin: 0;
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border);
+  font: var(--font-h1);
+  text-align: center;
+}
+
+.card {
+  padding: var(--space-3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+}
+
+.btn-primary {
+  width: min(80%, 320px);
+  min-height: 52px;
+  padding: var(--space-2) var(--space-4);
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--blue);
+  color: var(--white);
+  font: var(--font-button);
+  box-shadow: var(--shadow-button);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: filter 120ms ease, transform 120ms ease;
+}
+
+.btn-primary:active {
+  filter: brightness(0.88);
+  transform: translateY(1px);
+}
+
+.btn-primary:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

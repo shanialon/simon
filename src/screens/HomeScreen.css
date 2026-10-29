@@ -1,0 +1,38 @@
+.home-screen {
+  align-items: center;
+}
+
+.home-screen__stage {
+  margin: var(--space-3) 0 0;
+  font: var(--font-h3);
+  color: var(--white);
+}
+
+.home-screen__status {
+  min-height: 1.5em;
+  margin: var(--space-1) 0 var(--space-3);
+  font: var(--font-body);
+  color: var(--text-muted);
+}
+
+.home-screen__actions {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: var(--space-4);
+}
+
+/* Short phones: keep the start button above the navigation bar */
+@media (max-height: 640px) {
+  .home-screen {
+    padding-top: var(--space-3);
+  }
+
+  .home-screen .simon-board {
+    width: min(82vw, 340px, 38dvh);
+  }
+
+  .home-screen__actions {
+    margin-top: var(--space-3);
+  }
+}

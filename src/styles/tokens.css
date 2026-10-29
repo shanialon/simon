@@ -1,0 +1,36 @@
+:root {
+  /* Colors (DESIGN.md §2.1) */
+  --green: #00d26a;
+  --red: #ff3b30;
+  --yellow: #ffd600;
+  --blue: #00a3ff;
+  --charcoal: #0f0f0f;
+  --soft-gray: #e5e5e5;
+  --white: #ffffff;
+  --bg: #0a1628;
+  --surface: #12213a;
+  --border: #1e3556;
+  --text-muted: #9fb0c8;
+
+  /* Typography (DESIGN.md §2.2) */
+  --font-family: 'Heebo', Arial, sans-serif;
+  --font-h1: 700 32px/1.25 var(--font-family);
+  --font-h2: 700 24px/1.3 var(--font-family);
+  --font-h3: 600 20px/1.4 var(--font-family);
+  --font-body: 400 16px/1.6 var(--font-family);
+  --font-caption: 400 14px/1.4 var(--font-family);
+  --font-button: 600 16px/1.2 var(--font-family);
+
+  /* Spacing scale (DESIGN.md §2.4) */
+  --space-1: 8px;
+  --space-2: 12px;
+  --space-3: 16px;
+  --space-4: 24px;
+
+  /* Shapes & depth */
+  --radius-card: 16px;
+  --radius-inner: 12px;
+  --radius-pill: 999px;
+  --shadow-button: 0 6px 16px rgba(0, 163, 255, 0.3);
+  --shadow-board: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
