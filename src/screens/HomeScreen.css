@@ -15,11 +15,29 @@
   color: var(--text-muted);
 }
 
+.home-screen__status--error {
+  color: #ff8a82;
+  text-align: center;
+}
+
+.home-screen__board {
+  position: relative;
+}
+
+/* Fixed height so the board does not jump between button and hint */
 .home-screen__actions {
   display: flex;
+  align-items: center;
   justify-content: center;
   width: 100%;
+  min-height: 52px;
   margin-top: var(--space-4);
+}
+
+.home-screen__hint {
+  margin: 0;
+  font: var(--font-body);
+  color: var(--text-muted);
 }
 
 /* Short phones: keep the start button above the navigation bar */

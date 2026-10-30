@@ -21,11 +21,19 @@
 }
 
 .simon-board__pad {
+  position: relative;
   border: none;
   padding: 0;
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  transition: filter 80ms ease, box-shadow 80ms ease;
+}
+
+/* Disabled pads keep their colors; only the cursor changes */
+.simon-board__pad:disabled {
+  cursor: default;
 }
 
 .simon-board__pad:focus-visible {
@@ -42,6 +50,25 @@
 .simon-board__pad--red { background: var(--red); }
 .simon-board__pad--yellow { background: var(--yellow); }
 .simon-board__pad--blue { background: var(--blue); }
+
+.simon-board__pad--green { --pad-glow: var(--green); }
+.simon-board__pad--red { --pad-glow: var(--red); }
+.simon-board__pad--yellow { --pad-glow: var(--yellow); }
+.simon-board__pad--blue { --pad-glow: var(--blue); }
+
+/* Lit pad: brighter with a colored glow above its neighbours */
+.simon-board__pad.is-lit {
+  z-index: 1;
+  filter: brightness(1.35) saturate(1.1);
+  box-shadow:
+    0 0 24px 4px var(--pad-glow),
+    inset 0 0 28px rgba(255, 255, 255, 0.55);
+}
+
+/* Presentation: unlit pads are dimmed */
+.simon-board__pad.is-dim {
+  filter: brightness(0.45) saturate(0.75);
+}
 
 .simon-board__center {
   position: absolute;
