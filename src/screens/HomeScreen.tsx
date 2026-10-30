@@ -21,7 +21,13 @@ export default function HomeScreen({ game }: Props) {
   } else if (status === 'awaitingInput') {
     statusText = 'התור שלך';
     hint = 'הקש על הצבעים לפי הסדר';
+  } else if (status === 'paused') {
+    statusText = 'המשחק מושהה';
   }
+
+  let errorText = '';
+  if (audioError && status === 'idle') errorText = 'לא ניתן להפעיל את הצלילים. לחץ שוב על "התחל משחק".';
+  if (audioError && status === 'paused') errorText = 'לא ניתן להפעיל את הצלילים. לחץ שוב על "המשך משחק".';
 
   return (
     <section className="screen home-screen">
@@ -29,13 +35,13 @@ export default function HomeScreen({ game }: Props) {
       <p className="home-screen__stage">
         שלב <bdi>{status === 'idle' ? 1 : displayRound}</bdi> מתוך <bdi>{MAX_ROUNDS}</bdi>
       </p>
-      <p className={`home-screen__status${audioError ? ' home-screen__status--error' : ''}`} aria-live="polite">
-        {status === 'idle' && audioError ? 'לא ניתן להפעיל את הצלילים. לחץ שוב על "התחל משחק".' : statusText}
+      <p className={`home-screen__status${errorText ? ' home-screen__status--error' : ''}`} aria-live="polite">
+        {errorText || statusText}
       </p>
       <div className="home-screen__board">
         <SimonBoard
           litColor={litColor}
-          dimmed={status === 'presenting'}
+          dimmed={status === 'presenting' || status === 'paused'}
           inputEnabled={status === 'awaitingInput'}
           onPressStart={game.pressStart}
           onPressEnd={game.pressEnd}
@@ -52,6 +58,10 @@ export default function HomeScreen({ game }: Props) {
         {status === 'idle' ? (
           <button type="button" className="btn-primary" onClick={game.startGame}>
             התחל משחק
+          </button>
+        ) : status === 'paused' ? (
+          <button type="button" className="btn-primary" onClick={game.resumeGame}>
+            המשך משחק
           </button>
         ) : (
           <p className="home-screen__hint">{hint}</p>

@@ -1,7 +1,7 @@
 import type { ColorId } from './colors';
 import { MAX_ROUNDS } from './timing';
 
-export type GameStatus = 'idle' | 'presenting' | 'awaitingInput' | 'won' | 'lost';
+export type GameStatus = 'idle' | 'presenting' | 'awaitingInput' | 'paused' | 'won' | 'lost';
 
 export type GameState = {
   status: GameStatus;
@@ -22,8 +22,8 @@ export type GameAction =
   | { type: 'presentationDone'; presentationId: number }
   | { type: 'press'; color: ColorId; nextColor: ColorId }
   | { type: 'dismiss' }
-  // Temporary until Milestone 3 replaces it with 'pause'
-  | { type: 'abandon' };
+  | { type: 'pause' }
+  | { type: 'resume' };
 
 export const initialGameState: GameState = {
   status: 'idle',
@@ -36,8 +36,8 @@ export const initialGameState: GameState = {
   roundIntro: false,
 };
 
-function backToIdle(state: GameState, presentationId = state.presentationId): GameState {
-  return { ...initialGameState, gameId: state.gameId, presentationId };
+function backToIdle(state: GameState): GameState {
+  return { ...initialGameState, gameId: state.gameId, presentationId: state.presentationId };
 }
 
 // Pure state machine: no audio, timers, storage or randomness (ARCHITECTURE §2.3)
@@ -86,8 +86,28 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       if (state.status !== 'won' && state.status !== 'lost') return state;
       return backToIdle(state);
 
-    case 'abandon':
+    // Keeps the sequence and round in memory; partial input is dropped and the
+    // running presentation becomes stale (ADR-3). Pausing during the round
+    // intro keeps the new round (ADR-12).
+    case 'pause':
       if (state.status !== 'presenting' && state.status !== 'awaitingInput') return state;
-      return backToIdle(state, state.presentationId + 1);
+      return {
+        ...state,
+        status: 'paused',
+        inputIndex: 0,
+        presentationId: state.presentationId + 1,
+        roundIntro: false,
+      };
+
+    // Replays the full sequence of the same round as a fresh presentation
+    case 'resume':
+      if (state.status !== 'paused') return state;
+      return {
+        ...state,
+        status: 'presenting',
+        inputIndex: 0,
+        presentationId: state.presentationId + 1,
+        roundIntro: false,
+      };
   }
 }

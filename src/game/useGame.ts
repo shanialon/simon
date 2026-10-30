@@ -33,8 +33,15 @@ export function useGame(homeVisible: boolean) {
   const [audioError, setAudioError] = useState(false);
   // gameId whose end delay has passed (or was interrupted by leaving Home)
   const [endDueFor, setEndDueFor] = useState<number | null>(null);
+  // The end message waits while the page is hidden, like while About is shown (ADR-10)
+  const [pageVisible, setPageVisible] = useState(() => document.visibilityState !== 'hidden');
   const pressRef = useRef<ActivePress | null>(null);
   const startingRef = useRef(false);
+  const resumingRef = useRef(false);
+  // Home screen and page both visible; read after async audio unlock
+  const shown = homeVisible && pageVisible;
+  const shownRef = useRef(shown);
+  shownRef.current = shown;
   const endFeedbackForRef = useRef<number | null>(null);
 
   const apply = useCallback((action: GameAction) => {
@@ -104,15 +111,47 @@ export function useGame(homeVisible: boolean) {
     apply({ type: 'dismiss' });
   }, [apply]);
 
-  // Temporary (Milestone 2): leaving Home cancels an active game; Milestone 3 pauses instead
-  const abandon = useCallback(() => {
+  // Shared by navigation to About, visibilitychange and pagehide (ADR-3)
+  const pause = useCallback(() => {
     const { status } = stateRef.current;
     if (status !== 'presenting' && status !== 'awaitingInput') return;
+    // Silence and darken at once; presentation timers are cleared by the controller's cleanup
     if (pressRef.current) finishPress(pressRef.current);
     stopAll();
     setLitColor(null);
-    apply({ type: 'abandon' });
+    apply({ type: 'pause' });
   }, [apply, finishPress]);
+
+  // Called directly from the "המשך משחק" click so audio unlocks inside the gesture
+  const resumeGame = useCallback(async () => {
+    if (stateRef.current.status !== 'paused' || resumingRef.current) return;
+    resumingRef.current = true;
+    const ok = await unlockAudio();
+    resumingRef.current = false;
+    if (!ok) {
+      setAudioError(true);
+      return;
+    }
+    setAudioError(false);
+    // Left Home or hid the page while audio was unlocking: stay paused
+    if (!shownRef.current) return;
+    apply({ type: 'resume' });
+  }, [apply]);
+
+  // Hiding the page pauses; becoming visible again never resumes on its own
+  useEffect(() => {
+    const onVisibility = () => {
+      const hidden = document.visibilityState === 'hidden';
+      setPageVisible(!hidden);
+      if (hidden) pause();
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+    window.addEventListener('pagehide', pause);
+    return () => {
+      document.removeEventListener('visibilitychange', onVisibility);
+      window.removeEventListener('pagehide', pause);
+    };
+  }, [pause]);
 
   // Sequence controller: one schedule per presentationId; cleanup cancels every timer and tone
   const { status, presentationId } = state;
@@ -158,16 +197,16 @@ export function useGame(homeVisible: boolean) {
   const endDue = ended && endDueFor === gameId;
   useEffect(() => {
     if (!ended || endDue) return;
-    if (!homeVisible) {
-      // Left during the delay: show the message as soon as Home is back
+    if (!shown) {
+      // Left or hid the page during the delay: show the message as soon as Home is visible again
       setEndDueFor(gameId);
       return;
     }
     const id = window.setTimeout(() => setEndDueFor(gameId), END_DELAY_MS);
     return () => window.clearTimeout(id);
-  }, [ended, endDue, homeVisible, gameId]);
+  }, [ended, endDue, shown, gameId]);
 
-  const endMessageShown = endDue && homeVisible;
+  const endMessageShown = endDue && shown;
   useEffect(() => {
     if (!endMessageShown) return;
     // Sound and confetti play once per game, even if Home is left and revisited
@@ -208,7 +247,8 @@ export function useGame(homeVisible: boolean) {
     pressStart,
     pressEnd,
     dismiss,
-    abandon,
+    pause,
+    resumeGame,
   };
 }
 

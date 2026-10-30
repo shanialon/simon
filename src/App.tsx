@@ -11,8 +11,8 @@ export default function App() {
   const game = useGame(screen === 'home');
 
   function navigate(next: Screen) {
-    // Temporary (Milestone 2): leaving Home cancels an active game
-    if (next === 'about') game.abandon();
+    // Leaving Home pauses an active game; coming back never resumes it on its own
+    if (next === 'about') game.pause();
     setScreen(next);
   }
 
