@@ -1,0 +1,38 @@
+.history-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-inner);
+}
+
+.history-card p {
+  margin: 0;
+}
+
+.history-card__rounds {
+  font: 600 16px/1.4 var(--font-family);
+  color: var(--white);
+}
+
+.history-card__outcome {
+  font: var(--font-caption);
+}
+
+/* Restrained accent; the word itself carries the result */
+.history-card__outcome--win {
+  color: var(--green);
+}
+
+.history-card__outcome--loss {
+  color: #ff8a82;
+}
+
+.history-card__when {
+  flex-shrink: 0;
+  font: var(--font-caption);
+  color: var(--text-muted);
+}

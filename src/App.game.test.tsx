@@ -1,7 +1,24 @@
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import App from './App';
-import { COLORS, type ColorId } from './game/colors';
+import type { ColorId } from './game/colors';
 import { FLASH_MS, GAP_MS } from './game/timing';
+import {
+  IDS,
+  advance,
+  clickResume,
+  clickStart,
+  expectPaused,
+  goTo,
+  litPads,
+  nav,
+  other,
+  pad,
+  playRounds,
+  press,
+  readSequence,
+  setPageVisibility,
+  stage,
+} from './test/gameTestUtils';
 import * as audio from './audio/audio';
 import * as confetti from './effects/confetti';
 import { randomColor } from './game/random';
@@ -15,97 +32,6 @@ vi.mock('./audio/audio', () => ({
 }));
 vi.mock('./effects/confetti', () => ({ fireConfetti: vi.fn(), resetConfetti: vi.fn() }));
 vi.mock('./game/random', () => ({ randomColor: vi.fn() }));
-
-const IDS = COLORS.map((c) => c.id);
-const labelOf = (id: ColorId) => COLORS.find((c) => c.id === id)!.label;
-const pad = (id: ColorId) => screen.getByRole('button', { name: labelOf(id) });
-const litPads = () => IDS.filter((id) => pad(id).classList.contains('is-lit'));
-const stage = () => screen.getByText((_, el) => el?.classList.contains('home-screen__stage') ?? false).textContent;
-const nav = () => screen.getByRole('navigation', { name: 'ניווט ראשי' });
-const other = (id: ColorId) => IDS.find((c) => c !== id)!;
-
-function advance(ms: number) {
-  act(() => {
-    vi.advanceTimersByTime(ms);
-  });
-}
-
-async function clickStart() {
-  await act(async () => {
-    fireEvent.click(screen.getByRole('button', { name: 'התחל משחק' }));
-  });
-}
-
-async function clickResume() {
-  await act(async () => {
-    fireEvent.click(screen.getByRole('button', { name: 'המשך משחק' }));
-  });
-}
-
-function goTo(name: 'בית' | 'אודות') {
-  fireEvent.click(within(nav()).getByRole('button', { name }));
-}
-
-function setPageVisibility(state: 'visible' | 'hidden') {
-  Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => state });
-  act(() => {
-    document.dispatchEvent(new Event('visibilitychange'));
-  });
-}
-
-// Paused Home view: dimmed board, no input, only "המשך משחק"
-function expectPaused(round: number) {
-  expect(screen.getByText('המשחק מושהה')).toBeInTheDocument();
-  expect(screen.getByRole('button', { name: 'המשך משחק' })).toBeInTheDocument();
-  expect(screen.queryByRole('button', { name: 'התחל משחק' })).not.toBeInTheDocument();
-  expect(stage()).toBe(`שלב ${round} מתוך 10`);
-  expect(litPads()).toEqual([]);
-  for (const id of IDS) {
-    expect(pad(id)).toBeDisabled();
-    expect(pad(id)).toHaveClass('is-dim');
-  }
-}
-
-function press(id: ColorId) {
-  fireEvent.pointerDown(pad(id));
-  fireEvent.pointerUp(window);
-}
-
-// Watches a presentation, checking the fixed pace, and returns the colors shown
-function readSequence(length: number, leadMs: number): ColorId[] {
-  advance(leadMs - 1);
-  expect(litPads()).toEqual([]);
-  advance(1);
-  const seq: ColorId[] = [];
-  for (let i = 0; i < length; i++) {
-    const lit = litPads();
-    expect(lit).toHaveLength(1);
-    seq.push(lit[0]);
-    advance(FLASH_MS - 1);
-    expect(litPads()).toEqual([seq[i]]);
-    advance(1);
-    expect(litPads()).toEqual([]);
-    if (i < length - 1) {
-      advance(GAP_MS - 1);
-      expect(litPads()).toEqual([]);
-      advance(1);
-    }
-  }
-  return seq;
-}
-
-// Plays rounds 1..count correctly; returns the sequence of the last round played
-function playRounds(count: number) {
-  let seq: ColorId[] = [];
-  for (let round = 1; round <= count; round++) {
-    const next = readSequence(round, round === 1 ? 1000 : 2000);
-    expect(next.slice(0, seq.length)).toEqual(seq);
-    seq = next;
-    expect(screen.getByText('התור שלך')).toBeInTheDocument();
-    seq.forEach(press);
-  }
-  return seq;
-}
 
 describe('Game', () => {
   beforeEach(() => {

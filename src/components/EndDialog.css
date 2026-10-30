@@ -46,3 +46,9 @@
   width: 100%;
   margin-top: var(--space-1);
 }
+
+.end-dialog__save-error {
+  margin: 0;
+  font: var(--font-caption);
+  color: #ff8a82;
+}

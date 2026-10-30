@@ -6,9 +6,11 @@ import './HomeScreen.css';
 
 type Props = {
   game: Game;
+  // The history could not store this game's result
+  saveFailed: boolean;
 };
 
-export default function HomeScreen({ game }: Props) {
+export default function HomeScreen({ game, saveFailed }: Props) {
   const { state, litColor, displayRound, endMessageShown, audioError } = game;
   const { status } = state;
   const ended = status === 'won' || status === 'lost';
@@ -50,6 +52,7 @@ export default function HomeScreen({ game }: Props) {
           <EndDialog
             outcome={status === 'won' ? 'win' : 'loss'}
             completedRounds={state.completedRounds}
+            saveFailed={saveFailed}
             onConfirm={game.dismiss}
           />
         )}

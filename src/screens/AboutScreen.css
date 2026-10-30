@@ -26,3 +26,49 @@
   color: var(--text-muted);
   text-align: center;
 }
+
+.about-screen__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about-screen__error {
+  margin: 0;
+  font: var(--font-body);
+  color: #ff8a82;
+  text-align: center;
+}
+
+.about-screen__error--inline {
+  margin-top: var(--space-2);
+}
+
+/* Secondary button: surface with a restrained outline (DESIGN §2.3) */
+.about-screen__delete {
+  align-self: center;
+  width: min(100%, 320px);
+  min-height: 48px;
+  margin-top: var(--space-3);
+  padding: var(--space-1) var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  color: var(--white);
+  font: var(--font-button);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.about-screen__delete:active {
+  filter: brightness(1.2);
+}
+
+.about-screen__delete:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 3px;
+}

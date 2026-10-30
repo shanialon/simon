@@ -4,10 +4,11 @@ import './EndDialog.css';
 type Props = {
   outcome: 'win' | 'loss';
   completedRounds: number;
+  saveFailed?: boolean;
   onConfirm: () => void;
 };
 
-export default function EndDialog({ outcome, completedRounds, onConfirm }: Props) {
+export default function EndDialog({ outcome, completedRounds, saveFailed = false, onConfirm }: Props) {
   const confirmRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -29,6 +30,11 @@ export default function EndDialog({ outcome, completedRounds, onConfirm }: Props
       <p className="end-dialog__detail">
         שלבים שהושלמו: <bdi>{completedRounds}</bdi>
       </p>
+      {saveFailed && (
+        <p className="end-dialog__save-error" role="alert">
+          לא ניתן היה לשמור את התוצאה בהיסטוריה.
+        </p>
+      )}
       <button ref={confirmRef} type="button" className="btn-primary end-dialog__confirm" onClick={onConfirm}>
         אישור
       </button>

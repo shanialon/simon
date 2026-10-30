@@ -1,0 +1,69 @@
+/* Covers the whole app, navigation included, like the mockup */
+.confirm-dialog__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3);
+  background: rgba(3, 8, 16, 0.82);
+}
+
+/* Light card, unlike the rest of the dark UI (DESIGN §2.3) */
+.confirm-dialog {
+  width: min(100%, 340px);
+  padding: var(--space-4) var(--space-3) var(--space-3);
+  background: var(--white);
+  border-radius: var(--radius-card);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.confirm-dialog__title {
+  margin: 0;
+  font: var(--font-h3);
+  color: var(--charcoal);
+}
+
+.confirm-dialog__text {
+  margin: var(--space-1) 0 var(--space-4);
+  font: var(--font-body);
+  color: #4a5568;
+}
+
+.confirm-dialog__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
+.confirm-dialog__btn {
+  min-height: 48px;
+  padding: var(--space-1) var(--space-3);
+  border: none;
+  border-radius: var(--radius-inner);
+  font: var(--font-button);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.confirm-dialog__btn--delete {
+  background: var(--red);
+  color: var(--white);
+}
+
+.confirm-dialog__btn--cancel {
+  background: var(--soft-gray);
+  color: var(--charcoal);
+}
+
+.confirm-dialog__btn:active {
+  filter: brightness(0.9);
+}
+
+.confirm-dialog__btn:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
