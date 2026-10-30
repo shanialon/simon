@@ -6,6 +6,12 @@
       "runtimeExecutable": "/usr/local/bin/npm",
       "runtimeArgs": ["run", "dev"],
       "port": 5173
+    },
+    {
+      "name": "simon-preview",
+      "runtimeExecutable": "/usr/local/bin/npm",
+      "runtimeArgs": ["run", "preview"],
+      "port": 4173
     }
   ]
 }

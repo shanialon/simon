@@ -59,3 +59,6 @@
 > Claude ממלא זאת ברגע שהאפליקציה יכולה לרוץ (בדרך כלל בסיום Milestone 1), ומעדכן אם משהו משתנה.
 - **הרצה (dev):** `npm run dev` (כתובת: `http://localhost:5173/simon/`)
 - **בדיקות (test):** `npm test` (וגם `npm run typecheck`, `npm run build`)
+- **בדיקת PWA/Offline (preview):** `npm run build` ואז `npm run preview` (כתובת: `http://localhost:4173/simon/`)
+- **יצירת אייקונים מחדש:** `npm run generate-pwa-assets` (מקור: `public/icon.svg`)
+- **פרסום:** אוטומטי ב-GitHub Actions בכל push ל-`main` (`https://shanialon.github.io/simon/`)
