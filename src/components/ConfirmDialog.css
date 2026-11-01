@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
   padding: var(--space-3);
-  background: rgba(3, 8, 16, 0.82);
+  background: rgba(16, 6, 9, 0.82);
 }
 
 /* Light card, unlike the rest of the dark UI (DESIGN §2.3) */
@@ -29,7 +29,7 @@
 .confirm-dialog__text {
   margin: var(--space-1) 0 var(--space-4);
   font: var(--font-body);
-  color: #4a5568;
+  color: #6b4f57;
 }
 
 .confirm-dialog__actions {
@@ -50,7 +50,7 @@
 }
 
 .confirm-dialog__btn--delete {
-  background: var(--red);
+  background: var(--rose);
   color: var(--white);
 }
 
@@ -64,6 +64,6 @@
 }
 
 .confirm-dialog__btn:focus-visible {
-  outline: 2px solid var(--blue);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }

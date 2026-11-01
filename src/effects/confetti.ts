@@ -1,6 +1,6 @@
 import confetti from 'canvas-confetti';
 
-const BOARD_COLORS = ['#00D26A', '#FF3B30', '#FFD600', '#00A3FF'];
+const BOARD_COLORS = ['#F48FB1', '#C2185B', '#D9A066', '#8D5B3E'];
 
 // Win only (PRD §4.2)
 export function fireConfetti() {

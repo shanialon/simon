@@ -39,7 +39,7 @@
 .about-screen__error {
   margin: 0;
   font: var(--font-body);
-  color: #ff8a82;
+  color: var(--danger);
   text-align: center;
 }
 

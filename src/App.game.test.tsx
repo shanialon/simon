@@ -38,7 +38,7 @@ describe('Game', () => {
     vi.useFakeTimers();
     vi.clearAllMocks();
     // Cycle through colors with repeats so sequences vary
-    const cycle: ColorId[] = ['red', 'red', 'blue', 'green', 'yellow', 'green', 'blue'];
+    const cycle: ColorId[] = ['rose', 'rose', 'brown', 'pink', 'caramel', 'pink', 'brown'];
     let i = 0;
     vi.mocked(randomColor).mockImplementation(() => cycle[i++ % cycle.length]);
   });
@@ -59,7 +59,7 @@ describe('Game', () => {
 
     // A wrong press during presentation has no effect
     advance(500);
-    fireEvent.pointerDown(pad('blue'));
+    fireEvent.pointerDown(pad('brown'));
     fireEvent.pointerUp(window);
 
     const [first] = readSequence(1, 500);
@@ -198,7 +198,7 @@ describe('Game', () => {
 
   it('"המשך משחק" replays the full sequence of the same round and input restarts from the first color', async () => {
     // Two different colors in round 2, so the second one is a wrong first press
-    const colors: ColorId[] = ['red', 'blue', 'green', 'yellow'];
+    const colors: ColorId[] = ['rose', 'brown', 'pink', 'caramel'];
     let i = 0;
     vi.mocked(randomColor).mockImplementation(() => colors[i++ % colors.length]);
     render(<App />);

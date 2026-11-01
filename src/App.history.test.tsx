@@ -42,7 +42,7 @@ describe('History', () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date(2026, 9, 30, 14, 32, 0));
     vi.clearAllMocks();
-    const cycle: ColorId[] = ['red', 'red', 'blue', 'green', 'yellow', 'green', 'blue'];
+    const cycle: ColorId[] = ['rose', 'rose', 'brown', 'pink', 'caramel', 'pink', 'brown'];
     let i = 0;
     vi.mocked(randomColor).mockImplementation(() => cycle[i++ % cycle.length]);
   });

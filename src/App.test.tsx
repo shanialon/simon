@@ -15,14 +15,14 @@ describe('App shell', () => {
       screen.getByText((_, el) => el?.tagName === 'P' && el.textContent === 'שלב 1 מתוך 10'),
     ).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'התחל משחק' })).toBeInTheDocument();
-    for (const label of ['ירוק', 'אדום', 'צהוב', 'כחול']) {
+    for (const label of ['ורוד', 'פטל', 'קרמל', 'חום']) {
       expect(screen.getByRole('button', { name: label })).toBeInTheDocument();
     }
   });
 
   it('places each color in its board position', () => {
     render(<App />);
-    const expected = { ירוק: 'tl', אדום: 'tr', צהוב: 'bl', כחול: 'br' } as const;
+    const expected = { ורוד: 'tl', פטל: 'tr', קרמל: 'bl', חום: 'br' } as const;
     for (const { label, area } of COLORS) {
       expect(area).toBe(expected[label as keyof typeof expected]);
       expect(screen.getByRole('button', { name: label })).toHaveClass(`simon-board__pad--${area}`);
@@ -45,12 +45,12 @@ describe('App shell', () => {
     expect(screen.getByRole('heading', { name: '10 המשחקים האחרונים' })).toBeInTheDocument();
     expect(screen.getByText('עדיין אין משחקים שמורים.')).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'מחק היסטוריה' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'ירוק' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'ורוד' })).not.toBeInTheDocument();
     expect(within(nav()).getByRole('button', { name: 'אודות' })).toHaveAttribute('aria-current', 'page');
 
     await user.click(within(nav()).getByRole('button', { name: 'בית' }));
     expect(screen.getByRole('button', { name: 'התחל משחק' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'ירוק' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'ורוד' })).toBeInTheDocument();
     expect(within(nav()).getByRole('button', { name: 'בית' })).toHaveAttribute('aria-current', 'page');
   });
 });

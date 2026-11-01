@@ -24,11 +24,11 @@
 
 /* Restrained accent; the word itself carries the result */
 .history-card__outcome--win {
-  color: var(--green);
+  color: var(--success);
 }
 
 .history-card__outcome--loss {
-  color: #ff8a82;
+  color: var(--danger);
 }
 
 .history-card__when {

@@ -1,16 +1,19 @@
 :root {
   /* Colors (DESIGN.md §2.1) */
-  --green: #00d26a;
-  --red: #ff3b30;
-  --yellow: #ffd600;
-  --blue: #00a3ff;
-  --charcoal: #0f0f0f;
+  --pink: #f48fb1;
+  --rose: #c2185b;
+  --caramel: #d9a066;
+  --brown: #8d5b3e;
+  --accent: #d14d82;
+  --success: #f0c08a;
+  --danger: #ff8fb1;
+  --charcoal: #140b0d;
   --soft-gray: #e5e5e5;
   --white: #ffffff;
-  --bg: #0a1628;
-  --surface: #12213a;
-  --border: #1e3556;
-  --text-muted: #9fb0c8;
+  --bg: #1c1114;
+  --surface: #2a1a1f;
+  --border: #4d2f38;
+  --text-muted: #c8a9b2;
 
   /* Typography (DESIGN.md §2.2) */
   --font-family: 'Heebo', Arial, sans-serif;
@@ -31,6 +34,6 @@
   --radius-card: 16px;
   --radius-inner: 12px;
   --radius-pill: 999px;
-  --shadow-button: 0 6px 16px rgba(0, 163, 255, 0.3);
+  --shadow-button: 0 6px 16px rgba(209, 77, 130, 0.35);
   --shadow-board: 0 12px 32px rgba(0, 0, 0, 0.5);
 }

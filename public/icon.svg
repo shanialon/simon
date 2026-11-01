@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" fill="#0A1628"/>
-  <path d="M256 256 L64 256 A192 192 0 0 1 256 64 Z" fill="#00D26A"/>
-  <path d="M256 256 L256 64 A192 192 0 0 1 448 256 Z" fill="#FF3B30"/>
-  <path d="M256 256 L448 256 A192 192 0 0 1 256 448 Z" fill="#00A3FF"/>
-  <path d="M256 256 L256 448 A192 192 0 0 1 64 256 Z" fill="#FFD600"/>
-  <rect x="60" y="246" width="392" height="20" fill="#0F0F0F"/>
-  <rect x="246" y="60" width="20" height="392" fill="#0F0F0F"/>
-  <circle cx="256" cy="256" r="196" fill="none" stroke="#0F0F0F" stroke-width="8"/>
-  <circle cx="256" cy="256" r="201" fill="none" stroke="#1E3556" stroke-width="3"/>
-  <circle cx="256" cy="256" r="64" fill="#0F0F0F" stroke="#1E3556" stroke-width="5"/>
+  <rect width="512" height="512" fill="#1C1114"/>
+  <path d="M256 256 L64 256 A192 192 0 0 1 256 64 Z" fill="#F48FB1"/>
+  <path d="M256 256 L256 64 A192 192 0 0 1 448 256 Z" fill="#C2185B"/>
+  <path d="M256 256 L448 256 A192 192 0 0 1 256 448 Z" fill="#8D5B3E"/>
+  <path d="M256 256 L256 448 A192 192 0 0 1 64 256 Z" fill="#D9A066"/>
+  <rect x="60" y="246" width="392" height="20" fill="#140B0D"/>
+  <rect x="246" y="60" width="20" height="392" fill="#140B0D"/>
+  <circle cx="256" cy="256" r="196" fill="none" stroke="#140B0D" stroke-width="8"/>
+  <circle cx="256" cy="256" r="201" fill="none" stroke="#4D2F38" stroke-width="3"/>
+  <circle cx="256" cy="256" r="64" fill="#140B0D" stroke="#4D2F38" stroke-width="5"/>
 </svg>

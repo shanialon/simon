@@ -68,7 +68,7 @@ button {
   padding: var(--space-2) var(--space-4);
   border: none;
   border-radius: var(--radius-pill);
-  background: var(--blue);
+  background: var(--accent);
   color: var(--white);
   font: var(--font-button);
   box-shadow: var(--shadow-button);

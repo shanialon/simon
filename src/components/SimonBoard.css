@@ -46,15 +46,15 @@
 .simon-board__pad--bl { grid-area: bl; border-bottom-left-radius: 100%; }
 .simon-board__pad--br { grid-area: br; border-bottom-right-radius: 100%; }
 
-.simon-board__pad--green { background: var(--green); }
-.simon-board__pad--red { background: var(--red); }
-.simon-board__pad--yellow { background: var(--yellow); }
-.simon-board__pad--blue { background: var(--blue); }
+.simon-board__pad--pink { background: var(--pink); }
+.simon-board__pad--rose { background: var(--rose); }
+.simon-board__pad--caramel { background: var(--caramel); }
+.simon-board__pad--brown { background: var(--brown); }
 
-.simon-board__pad--green { --pad-glow: var(--green); }
-.simon-board__pad--red { --pad-glow: var(--red); }
-.simon-board__pad--yellow { --pad-glow: var(--yellow); }
-.simon-board__pad--blue { --pad-glow: var(--blue); }
+.simon-board__pad--pink { --pad-glow: var(--pink); }
+.simon-board__pad--rose { --pad-glow: var(--rose); }
+.simon-board__pad--caramel { --pad-glow: var(--caramel); }
+.simon-board__pad--brown { --pad-glow: var(--brown); }
 
 /* Lit pad: brighter with a colored glow above its neighbours */
 .simon-board__pad.is-lit {
